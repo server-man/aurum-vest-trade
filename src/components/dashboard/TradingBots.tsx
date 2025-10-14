@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -8,10 +7,11 @@ import {
   Plus,
   Zap
 } from 'lucide-react';
-import { toast } from 'sonner';
 import { BotCard } from '@/components/trading/BotCard';
 import { BotConfigDialog, BotConfiguration } from '@/components/trading/BotConfigDialog';
 import { BotAnalytics } from '@/components/trading/BotAnalytics';
+import { useTradingBots } from '@/hooks/useTradingBots';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 interface TradingBot {
   id: string;
@@ -39,108 +39,30 @@ interface TradingBotsProps {
 }
 
 const TradingBots = ({ userId }: TradingBotsProps) => {
-  const [bots, setBots] = useState<TradingBot[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { bots, isLoading, toggleBotStatus, createBot } = useTradingBots(userId);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAnalyticsDialog, setShowAnalyticsDialog] = useState(false);
   const [selectedBot, setSelectedBot] = useState<TradingBot | null>(null);
   const [configMode, setConfigMode] = useState<'create' | 'edit'>('create');
 
-  useEffect(() => {
-    if (userId) {
-      fetchTradingBots();
-    }
-  }, [userId]);
-
-  const fetchTradingBots = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('trading_bots')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setBots(data || []);
-    } catch (error: any) {
-      console.error('Error fetching trading bots:', error);
-      toast.error('Failed to load trading bots');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleBotStatus = async (botId: string, currentStatus: boolean) => {
-    try {
-      const { error } = await supabase
-        .from('trading_bots')
-        .update({ 
-          is_activated: !currentStatus,
-          status: !currentStatus ? 'active' : 'inactive'
-        })
-        .eq('id', botId)
-        .eq('user_id', userId);
-
-      if (error) throw error;
-
-      setBots(prev => prev.map(bot => 
-        bot.id === botId 
-          ? { 
-              ...bot, 
-              is_activated: !currentStatus,
-              status: !currentStatus ? 'active' : 'inactive'
-            }
-          : bot
-      ));
-
-      toast.success(`Bot ${!currentStatus ? 'activated' : 'deactivated'} successfully`);
-    } catch (error: any) {
-      console.error('Error updating bot status:', error);
-      toast.error('Failed to update bot status');
-    }
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  };
-
   const handleCreateBot = async (config: BotConfiguration) => {
     try {
-      const { data, error } = await supabase
-        .from('trading_bots')
-        .insert({
-          user_id: userId,
-          name: config.name,
-          description: config.description,
-          trading_pair: config.trading_pair,
-          base_currency: config.base_currency,
-          quote_currency: config.quote_currency,
-          exchange: config.exchange,
-          initial_balance: config.initial_balance,
-          current_balance: config.initial_balance,
-          take_profit_percentage: config.take_profit_percentage,
-          stop_loss_percentage: config.stop_loss_percentage,
-          max_active_deals: config.max_active_deals,
-          risk_level: config.risk_level,
-          strategy_id: '00000000-0000-0000-0000-000000000000', // Placeholder
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      setBots(prev => [data, ...prev]);
-      toast.success('Trading bot created successfully!');
+      await createBot({
+        name: config.name,
+        description: config.description,
+        trading_pair: config.trading_pair,
+        base_currency: config.base_currency,
+        quote_currency: config.quote_currency,
+        exchange: config.exchange,
+        initial_balance: config.initial_balance,
+        take_profit_percentage: config.take_profit_percentage,
+        stop_loss_percentage: config.stop_loss_percentage,
+        max_active_deals: config.max_active_deals,
+        risk_level: config.risk_level,
+      });
       setShowConfigDialog(false);
-    } catch (error: any) {
-      console.error('Error creating bot:', error);
-      toast.error('Failed to create trading bot');
+    } catch (error) {
+      // Error already handled in hook
     }
   };
 
@@ -161,7 +83,7 @@ const TradingBots = ({ userId }: TradingBotsProps) => {
     setShowConfigDialog(true);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="space-y-6">
         <Card>
@@ -177,7 +99,8 @@ const TradingBots = ({ userId }: TradingBotsProps) => {
   }
 
   return (
-    <div className="space-y-6">
+    <ErrorBoundary>
+      <div className="space-y-6">
       {/* Bots List */}
       <Card className="animate-fade-in">
         <CardHeader>
@@ -260,7 +183,8 @@ const TradingBots = ({ userId }: TradingBotsProps) => {
           {selectedBot && <BotAnalytics bot={selectedBot} />}
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 };
 

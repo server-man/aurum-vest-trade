@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useWebSocket } from './useWebSocket';
+import { useIsMounted, useSafeInterval } from '@/lib/memoryLeakPrevention';
+import { debounce } from '@/lib/performanceOptimization';
+import { PriceUpdate } from '@/lib/websocket';
 
 export interface CryptoPrice {
   symbol: string;
@@ -15,9 +18,13 @@ export interface CryptoPrice {
 export const useMarketData = (symbols: string[] = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT']) => {
   const [prices, setPrices] = useState<Map<string, CryptoPrice>>(new Map());
   const [loading, setLoading] = useState(true);
+  const isMounted = useIsMounted();
 
-  const { isConnected, connectToBinance, disconnect } = useWebSocket({
-    onPriceUpdate: (update) => {
+  // Debounced price update to prevent excessive re-renders
+  const debouncedPriceUpdate = useCallback(
+    debounce((update: PriceUpdate) => {
+      if (!isMounted.current) return;
+      
       setPrices(prev => {
         const newPrices = new Map(prev);
         newPrices.set(update.symbol, {
@@ -29,7 +36,12 @@ export const useMarketData = (symbols: string[] = ['BTCUSDT', 'ETHUSDT', 'BNBUSD
         });
         return newPrices;
       });
-    }
+    }, 100),
+    [isMounted]
+  );
+
+  const { isConnected, connectToBinance, disconnect } = useWebSocket({
+    onPriceUpdate: debouncedPriceUpdate
   });
 
   const fetchInitialPrices = useCallback(async () => {
@@ -37,32 +49,49 @@ export const useMarketData = (symbols: string[] = ['BTCUSDT', 'ETHUSDT', 'BNBUSD
       setLoading(true);
       const priceMap = new Map<string, CryptoPrice>();
 
-      for (const symbol of symbols) {
+      // Fetch all prices in parallel for better performance
+      const fetchPromises = symbols.map(async (symbol) => {
         try {
           const response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
           const data = await response.json();
 
-          priceMap.set(symbol, {
+          return {
             symbol: data.symbol,
-            price: parseFloat(data.lastPrice),
-            change24h: parseFloat(data.priceChangePercent),
-            volume24h: parseFloat(data.volume),
-            high24h: parseFloat(data.highPrice),
-            low24h: parseFloat(data.lowPrice),
-            lastUpdate: new Date().toISOString(),
-          });
+            data: {
+              symbol: data.symbol,
+              price: parseFloat(data.lastPrice),
+              change24h: parseFloat(data.priceChangePercent),
+              volume24h: parseFloat(data.volume),
+              high24h: parseFloat(data.highPrice),
+              low24h: parseFloat(data.lowPrice),
+              lastUpdate: new Date().toISOString(),
+            }
+          };
         } catch (error) {
           console.error(`Error fetching ${symbol}:`, error);
+          return null;
         }
-      }
+      });
+
+      const results = await Promise.all(fetchPromises);
+      
+      if (!isMounted.current) return;
+
+      results.forEach(result => {
+        if (result) {
+          priceMap.set(result.symbol, result.data);
+        }
+      });
 
       setPrices(priceMap);
     } catch (error) {
       console.error('Error fetching initial prices:', error);
     } finally {
-      setLoading(false);
+      if (isMounted.current) {
+        setLoading(false);
+      }
     }
-  }, [symbols]);
+  }, [symbols, isMounted]);
 
   const syncToDatabase = useCallback(async () => {
     try {
@@ -80,14 +109,13 @@ export const useMarketData = (symbols: string[] = ['BTCUSDT', 'ETHUSDT', 'BNBUSD
     // Connect to WebSocket for real-time updates
     connectToBinance(symbols);
 
-    // Sync to database every 5 minutes
-    const syncInterval = setInterval(syncToDatabase, 5 * 60 * 1000);
-
     return () => {
       disconnect();
-      clearInterval(syncInterval);
     };
-  }, [symbols, connectToBinance, disconnect, fetchInitialPrices, syncToDatabase]);
+  }, [symbols, connectToBinance, disconnect, fetchInitialPrices]);
+
+  // Use safe interval for database sync
+  useSafeInterval(syncToDatabase, 5 * 60 * 1000);
 
   const getPrice = useCallback((symbol: string) => {
     return prices.get(symbol);

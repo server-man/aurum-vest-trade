@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useMarketData } from '@/hooks/useMarketData';
+import { formatPrice, formatVolume, formatSymbol } from '@/lib/formatters';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -16,23 +18,9 @@ interface LivePriceTrackerProps {
 
 const LivePriceTracker = ({ symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT'] }: LivePriceTrackerProps) => {
   const { getAllPrices, loading, isConnected, refreshPrices } = useMarketData(symbols);
-  const prices = getAllPrices();
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 6,
-    }).format(price);
-  };
-
-  const formatVolume = (volume: number) => {
-    if (volume >= 1e9) return `${(volume / 1e9).toFixed(2)}B`;
-    if (volume >= 1e6) return `${(volume / 1e6).toFixed(2)}M`;
-    if (volume >= 1e3) return `${(volume / 1e3).toFixed(2)}K`;
-    return volume.toFixed(2);
-  };
+  
+  // Memoize prices to prevent unnecessary re-renders
+  const prices = useMemo(() => getAllPrices(), [getAllPrices]);
 
   return (
     <Card>
@@ -88,7 +76,7 @@ const LivePriceTracker = ({ symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT
                       )}
                     </div>
                     <div>
-                      <div className="font-semibold">{price.symbol.replace('USDT', '/USDT')}</div>
+                      <div className="font-semibold">{formatSymbol(price.symbol)}</div>
                       <div className="text-sm text-muted-foreground">
                         Vol: {formatVolume(price.volume24h)}
                       </div>

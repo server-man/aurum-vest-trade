@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -6,13 +7,11 @@ import {
   Play, 
   Pause, 
   Settings, 
-  TrendingUp, 
-  TrendingDown,
   Eye,
-  Zap,
   Activity
 } from 'lucide-react';
 import { BotPerformanceChart } from './BotPerformanceChart';
+import { formatCurrency, formatDate } from '@/lib/formatters';
 
 interface TradingBot {
   id: string;
@@ -42,16 +41,8 @@ interface BotCardProps {
   onConfigure?: (bot: TradingBot) => void;
 }
 
-export const BotCard = ({ bot, onToggle, onViewDetails, onConfigure }: BotCardProps) => {
+const BotCardComponent = ({ bot, onToggle, onViewDetails, onConfigure }: BotCardProps) => {
   const isProfit = bot.profit_loss >= 0;
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  };
 
   const getRiskLevelColor = (riskLevel: string) => {
     switch (riskLevel.toLowerCase()) {
@@ -164,7 +155,7 @@ export const BotCard = ({ bot, onToggle, onViewDetails, onConfigure }: BotCardPr
         {/* Actions */}
         <div className="flex items-center justify-between pt-4 border-t">
           <div className="text-xs text-muted-foreground">
-            Created {new Date(bot.created_at).toLocaleDateString()}
+            Created {formatDate(bot.created_at)}
           </div>
           <div className="flex items-center gap-2">
             <Button 
@@ -209,3 +200,14 @@ export const BotCard = ({ bot, onToggle, onViewDetails, onConfigure }: BotCardPr
     </Card>
   );
 };
+
+// Memoize to prevent unnecessary re-renders
+export const BotCard = memo(BotCardComponent, (prevProps, nextProps) => {
+  return (
+    prevProps.bot.id === nextProps.bot.id &&
+    prevProps.bot.is_activated === nextProps.bot.is_activated &&
+    prevProps.bot.current_balance === nextProps.bot.current_balance &&
+    prevProps.bot.profit_loss === nextProps.bot.profit_loss &&
+    prevProps.bot.status === nextProps.bot.status
+  );
+});
