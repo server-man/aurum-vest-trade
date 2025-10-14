@@ -1,1 +1,28 @@
 project_id = "fapdrnwrkeivaxglyeiy"
+
+[functions.crypto-ai-agent]
+verify_jwt = false
+
+[functions.market-data-sync]
+verify_jwt = false
+
+[functions.content-bot-generate]
+verify_jwt = true
+
+[functions.send-notification]
+verify_jwt = true
+
+[functions.websocket-relay]
+verify_jwt = false
+
+[functions.ip-geolocation]
+verify_jwt = false
+
+[functions.security-pin]
+verify_jwt = true
+
+[functions.two-factor-auth]
+verify_jwt = true
+
+[functions.webauthn-passkey]
+verify_jwt = true
