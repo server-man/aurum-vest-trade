@@ -1,0 +1,84 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 17% 10%;
+    --foreground: 0 0% 100%;
+
+    --card: 220 17% 10%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 220 17% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 45 100% 51%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 220 16% 22%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 16% 16%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 220 16% 22%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 16% 22%;
+    --input: 220 16% 22%;
+    --ring: 45 95% 49%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-lg;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 md:px-8;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
