@@ -132,6 +132,48 @@ export type Database = {
           },
         ]
       }
+      cms_content: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          id: string
+          is_published: boolean | null
+          meta_description: string | null
+          meta_keywords: string[] | null
+          publish_date: string | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          publish_date?: string | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          publish_date?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       contents_bot: {
         Row: {
           created_at: string
@@ -168,6 +210,39 @@ export type Database = {
           storage_path?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      email_templates: {
+        Row: {
+          created_at: string | null
+          html_content: string
+          id: string
+          is_active: boolean | null
+          name: string
+          subject: string
+          updated_at: string | null
+          variables: string[] | null
+        }
+        Insert: {
+          created_at?: string | null
+          html_content: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          subject: string
+          updated_at?: string | null
+          variables?: string[] | null
+        }
+        Update: {
+          created_at?: string | null
+          html_content?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          subject?: string
+          updated_at?: string | null
+          variables?: string[] | null
         }
         Relationships: []
       }

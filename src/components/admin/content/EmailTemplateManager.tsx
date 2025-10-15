@@ -77,7 +77,13 @@ export function EmailTemplateManager() {
       if (editingTemplate) {
         const { error } = await supabase
           .from("email_templates")
-          .update(validated)
+          .update({
+            name: validated.name,
+            subject: validated.subject,
+            html_content: validated.html_content,
+            variables: validated.variables || [],
+            is_active: validated.is_active,
+          })
           .eq("id", editingTemplate.id);
 
         if (error) throw error;
@@ -85,7 +91,13 @@ export function EmailTemplateManager() {
       } else {
         const { error } = await supabase
           .from("email_templates")
-          .insert([validated]);
+          .insert([{
+            name: validated.name,
+            subject: validated.subject,
+            html_content: validated.html_content,
+            variables: validated.variables || [],
+            is_active: validated.is_active,
+          }]);
 
         if (error) throw error;
         toast.success("Template created successfully");

@@ -23,6 +23,7 @@ const GDPR = lazy(() => import("./pages/GDPR"));
 const SOC2 = lazy(() => import("./pages/SOC2"));
 const Admin = lazy(() => import("./pages/Admin"));
 const ContentBot = lazy(() => import("./pages/admin/ContentBot"));
+const ContentManagement = lazy(() => import("./pages/admin/ContentManagement"));
 const Logo = lazy(() => import("./pages/Logo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -90,6 +91,14 @@ const App = () => (
                   element={
                     <AdminRoute>
                       <ContentBot />
+                    </AdminRoute>
+                  } 
+                />
+                <Route
+                  path="/admin/content-management" 
+                  element={
+                    <AdminRoute>
+                      <ContentManagement />
                     </AdminRoute>
                   } 
                 />

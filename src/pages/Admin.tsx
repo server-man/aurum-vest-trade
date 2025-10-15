@@ -126,13 +126,23 @@ const Admin = () => {
             <h1 className="text-2xl sm:text-3xl font-bold text-white">Admin Dashboard</h1>
             <p className="text-sm sm:text-base text-gray-400 mt-1 sm:mt-2">Monitor and manage platform operations</p>
           </div>
-          <Button 
-            onClick={() => navigate("/admin/content")}
-            className="bg-gradient-to-r from-binance-yellow to-yellow-500 text-binance-black hover:from-yellow-400 hover:to-yellow-600 w-full sm:w-auto"
-          >
-            <Sparkles className="w-4 h-4 mr-2" />
-            Content Bot
-          </Button>
+          <div className="flex gap-2 flex-wrap">
+            <Button 
+              onClick={() => navigate("/admin/content")}
+              className="bg-gradient-to-r from-binance-yellow to-yellow-500 text-binance-black hover:from-yellow-400 hover:to-yellow-600"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Content Bot
+            </Button>
+            <Button 
+              onClick={() => navigate("/admin/content-management")}
+              variant="outline"
+              className="border-binance-yellow text-binance-yellow hover:bg-binance-yellow/10"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Content Management
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}

@@ -85,7 +85,16 @@ export function CMSManager() {
       if (editingContent) {
         const { error } = await supabase
           .from("cms_content")
-          .update(validated)
+          .update({
+            title: validated.title,
+            slug: validated.slug,
+            content: validated.content,
+            meta_description: validated.meta_description || null,
+            meta_keywords: validated.meta_keywords || [],
+            is_published: validated.is_published,
+            publish_date: validated.publish_date || null,
+            category: validated.category || null,
+          })
           .eq("id", editingContent.id);
 
         if (error) throw error;
@@ -93,7 +102,16 @@ export function CMSManager() {
       } else {
         const { error } = await supabase
           .from("cms_content")
-          .insert([validated]);
+          .insert([{
+            title: validated.title,
+            slug: validated.slug,
+            content: validated.content,
+            meta_description: validated.meta_description || null,
+            meta_keywords: validated.meta_keywords || [],
+            is_published: validated.is_published,
+            publish_date: validated.publish_date || null,
+            category: validated.category || null,
+          }]);
 
         if (error) throw error;
         toast.success("Content created successfully");

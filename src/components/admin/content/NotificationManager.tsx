@@ -70,7 +70,10 @@ export function NotificationManager() {
         // Create notifications for all users
         const notifications = users.map((user) => ({
           user_id: user.id,
-          ...validated,
+          title: validated.title,
+          message: validated.message,
+          type: validated.type,
+          link: validated.link || null,
         }));
 
         const { error } = await supabase
@@ -81,20 +84,24 @@ export function NotificationManager() {
         toast.success(`Notification sent to ${users.length} users`);
       } else if (formData.user_email) {
         // Send to specific user
-        const { data: user, error: userError } = await supabase
+        type ProfileId = { id: string };
+        const { data, error: userError } = await supabase
           .from("profiles")
           .select("id")
           .eq("email", formData.user_email)
-          .single();
+          .maybeSingle() as { data: ProfileId | null; error: any };
 
-        if (userError) throw new Error("User not found");
+        if (userError || !data) throw new Error("User not found");
 
         const { error } = await supabase
           .from("notifications")
           .insert([
             {
-              user_id: user.id,
-              ...validated,
+              user_id: data.id,
+              title: validated.title,
+              message: validated.message,
+              type: validated.type,
+              link: validated.link || null,
             },
           ]);
 
