@@ -6,9 +6,6 @@ verify_jwt = false
 [functions.market-data-sync]
 verify_jwt = false
 
-[functions.content-bot-generate]
-verify_jwt = true
-
 [functions.send-notification]
 verify_jwt = true
 
@@ -28,4 +25,7 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.webauthn-passkey]
+verify_jwt = true
+
+[functions.redis-cache]
 verify_jwt = true

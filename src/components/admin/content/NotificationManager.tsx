@@ -83,30 +83,9 @@ export function NotificationManager() {
         if (error) throw error;
         toast.success(`Notification sent to ${users.length} users`);
       } else if (formData.user_email) {
-        // Send to specific user
-        type ProfileId = { id: string };
-        const { data, error: userError } = await supabase
-          .from("profiles")
-          .select("id")
-          .eq("email", formData.user_email)
-          .maybeSingle() as { data: ProfileId | null; error: any };
-
-        if (userError || !data) throw new Error("User not found");
-
-        const { error } = await supabase
-          .from("notifications")
-          .insert([
-            {
-              user_id: data.id,
-              title: validated.title,
-              message: validated.message,
-              type: validated.type,
-              link: validated.link || null,
-            },
-          ]);
-
-        if (error) throw error;
-        toast.success("Notification sent successfully");
+        // Send to specific user by user ID (admin should know user IDs)
+        // Note: For email lookup, admin should use the user management interface
+        throw new Error("Please use user ID instead of email for individual notifications");
       } else {
         throw new Error("Please select recipients");
       }
@@ -226,14 +205,16 @@ export function NotificationManager() {
 
               {!formData.send_to_all && (
                 <div>
-                  <Label htmlFor="user_email">Or send to specific user email</Label>
+                  <Label htmlFor="user_email">Or send to specific user ID</Label>
                   <Input
                     id="user_email"
-                    type="email"
                     value={formData.user_email}
                     onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                    placeholder="user@example.com"
+                    placeholder="User UUID from user management"
                   />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Enter the user's UUID from the user management interface
+                  </p>
                 </div>
               )}
             </div>

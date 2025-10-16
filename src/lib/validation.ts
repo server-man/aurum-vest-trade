@@ -94,6 +94,21 @@ export function validateUrl(url: string): boolean {
   }
 }
 
+// Helper function to validate and return email template
+export function validateEmailTemplate(data: unknown): EmailTemplateInput {
+  return emailTemplateSchema.parse(data);
+}
+
+// Helper function to validate and return notification
+export function validateNotification(data: unknown): NotificationInput {
+  return notificationSchema.parse(data);
+}
+
+// Helper function to validate and return CMS content
+export function validateCmsContent(data: unknown): CmsContentInput {
+  return cmsContentSchema.parse(data);
+}
+
 export type EmailTemplateInput = z.infer<typeof emailTemplateSchema>;
 export type NotificationInput = z.infer<typeof notificationSchema>;
 export type CmsContentInput = z.infer<typeof cmsContentSchema>;

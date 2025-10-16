@@ -141,7 +141,7 @@ serve(async (req) => {
       console.error('Error processing message:', error);
       socket.send(JSON.stringify({ 
         type: 'error',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
         timestamp: Date.now()
       }));
     }
