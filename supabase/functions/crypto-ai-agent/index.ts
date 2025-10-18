@@ -138,6 +138,10 @@ async function getTradingContext(supabase: any, userId: string, marketData: Mark
 }
 
 async function analyzeMarket(apiKey: string, context: TradingContext, symbol: string) {
+  if (!context.marketData || context.marketData.length === 0) {
+    throw new Error('No market data available');
+  }
+  
   const marketInfo = context.marketData.find(m => m.symbol === symbol) || context.marketData[0];
   
   const prompt = `You are an expert cryptocurrency trading analyst. Analyze the current market conditions for ${marketInfo.symbol}:
@@ -184,6 +188,11 @@ Be concise and actionable.`;
   });
 
   const data = await response.json();
+  
+  if (!data.choices || data.choices.length === 0) {
+    throw new Error('Invalid AI response');
+  }
+  
   return {
     analysis: data.choices[0].message.content,
     marketData: marketInfo,
@@ -192,7 +201,15 @@ Be concise and actionable.`;
 }
 
 async function generateTradingSignal(apiKey: string, context: TradingContext, symbol: string) {
+  if (!context.marketData || context.marketData.length === 0) {
+    throw new Error('No market data available');
+  }
+  
   const marketInfo = context.marketData.find(m => m.symbol === symbol) || context.marketData[0];
+  
+  if (!marketInfo) {
+    throw new Error('Market data not found for symbol');
+  }
   
   const prompt = `As an AI trading system, analyze ${marketInfo.symbol} and generate a trading signal:
 
@@ -238,11 +255,20 @@ Format as JSON: {"signal":"BUY/SELL/HOLD","confidence":85,"entry":price,"takePro
   });
 
   const data = await response.json();
+  
+  if (!data.choices || data.choices.length === 0) {
+    throw new Error('Invalid AI response');
+  }
+  
   const signalText = data.choices[0].message.content;
   
   // Parse JSON response
   const jsonMatch = signalText.match(/\{[\s\S]*\}/);
   const signalData = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+  
+  if (!signalData) {
+    throw new Error('Failed to parse signal data');
+  }
   
   return {
     ...signalData,
@@ -253,6 +279,10 @@ Format as JSON: {"signal":"BUY/SELL/HOLD","confidence":85,"entry":price,"takePro
 }
 
 async function analyzeSentiment(apiKey: string, symbol: string, marketData: MarketData[]) {
+  if (!marketData || marketData.length === 0) {
+    throw new Error('No market data available');
+  }
+  
   const market = marketData.find(m => m.symbol === symbol) || marketData[0];
   
   try {
@@ -346,9 +376,18 @@ Format as JSON: {"riskScore":7,"factors":["..."],"recommendations":["..."],"shou
   });
 
   const data = await response.json();
+  
+  if (!data.choices || data.choices.length === 0) {
+    throw new Error('Invalid AI response');
+  }
+  
   const riskText = data.choices[0].message.content;
   const jsonMatch = riskText.match(/\{[\s\S]*\}/);
   const riskData = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+  
+  if (!riskData) {
+    throw new Error('Failed to parse risk assessment');
+  }
   
   return {
     botId,
@@ -358,6 +397,10 @@ Format as JSON: {"riskScore":7,"factors":["..."],"recommendations":["..."],"shou
 }
 
 async function getTradeRecommendation(apiKey: string, context: TradingContext, symbol: string) {
+  if (!context.marketData || context.marketData.length === 0) {
+    throw new Error('No market data available');
+  }
+  
   const market = context.marketData.find(m => m.symbol === symbol) || context.marketData[0];
   
   const prompt = `As an AI trading advisor, provide a trade recommendation for ${market.symbol}:
@@ -403,6 +446,10 @@ Be specific and practical.`;
   });
 
   const data = await response.json();
+  
+  if (!data.choices || data.choices.length === 0) {
+    throw new Error('Invalid AI response');
+  }
   
   return {
     recommendation: data.choices[0].message.content,
