@@ -12,7 +12,8 @@ import {
   Bell,
   Coins,
   MessageSquare,
-  Shield
+  Shield,
+  Gift
 } from 'lucide-react';
 import {
   Sidebar,
@@ -35,6 +36,7 @@ const dashboardItems = [
   { title: 'Signals', url: '/dashboard/signals', icon: TrendingUp },
   { title: 'Wallet', url: '/dashboard/wallet', icon: Wallet },
   { title: 'Trading Bots', url: '/dashboard/bots', icon: Bot },
+  { title: 'Referrals', url: '/dashboard/referrals', icon: Gift },
   { title: 'Profile', url: '/dashboard/profile', icon: Users },
   { title: 'Support', url: '/dashboard/support', icon: MessageSquare },
   { title: 'Admin Panel', url: '/admin', icon: Shield },

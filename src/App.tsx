@@ -36,6 +36,7 @@ const Support = lazy(() => import("./pages/dashboard/Support"));
 const MemeCoins = lazy(() => import("./pages/dashboard/MemeCoins"));
 const Airdrop = lazy(() => import("./pages/dashboard/Airdrop"));
 const Investo = lazy(() => import("./pages/dashboard/Investo"));
+const Referrals = lazy(() => import("./pages/dashboard/Referrals"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -106,6 +107,7 @@ const App = () => (
                   <Route path="meme-coins" element={<MemeCoins />} />
                   <Route path="airdrop" element={<Airdrop />} />
                   <Route path="investo" element={<Investo />} />
+                  <Route path="referrals" element={<Referrals />} />
                 </Route>
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

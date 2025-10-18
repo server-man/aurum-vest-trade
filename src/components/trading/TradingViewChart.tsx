@@ -1,17 +1,53 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createChart, IChartApi, CandlestickData, CandlestickSeries } from 'lightweight-charts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface TradingViewChartProps {
   symbol: string;
   data?: CandlestickData[];
   height?: number;
+  interval?: '1m' | '5m' | '15m' | '1h' | '4h' | '1d';
 }
 
-export const TradingViewChart = ({ symbol, data = [], height = 400 }: TradingViewChartProps) => {
+export const TradingViewChart = ({ symbol, data = [], height = 400, interval = '1h' }: TradingViewChartProps) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [chartData, setChartData] = useState<CandlestickData[]>(data);
+  const { toast } = useToast();
+
+  const fetchRealData = async () => {
+    setLoading(true);
+    try {
+      const { data: result, error } = await supabase.functions.invoke('crypto-candles', {
+        body: { symbol, interval, limit: 200 }
+      });
+
+      if (error) throw error;
+
+      if (result?.success && result?.data) {
+        setChartData(result.data);
+        toast({
+          title: "Chart Updated",
+          description: `Live data loaded for ${symbol}`,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching chart data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load live chart data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
@@ -44,9 +80,12 @@ export const TradingViewChart = ({ symbol, data = [], height = 400 }: TradingVie
     chartRef.current = chart;
     seriesRef.current = candlestickSeries;
 
-    // Generate sample data if none provided
-    const sampleData: CandlestickData[] = data.length > 0 ? data : generateSampleData();
-    candlestickSeries.setData(sampleData);
+    // Fetch real data on mount
+    if (chartData.length === 0) {
+      fetchRealData();
+    } else {
+      candlestickSeries.setData(chartData);
+    }
 
     const handleResize = () => {
       if (chartContainerRef.current && chartRef.current) {
@@ -64,18 +103,28 @@ export const TradingViewChart = ({ symbol, data = [], height = 400 }: TradingVie
         chartRef.current.remove();
       }
     };
-  }, [symbol, height]);
+  }, [symbol, height, interval]);
 
   useEffect(() => {
-    if (seriesRef.current && data.length > 0) {
-      seriesRef.current.setData(data);
+    if (seriesRef.current && chartData.length > 0) {
+      seriesRef.current.setData(chartData);
     }
-  }, [data]);
+  }, [chartData]);
 
   return (
     <Card className="animate-fade-in">
       <CardHeader>
-        <CardTitle className="text-lg">{symbol} Chart</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">{symbol} Chart ({interval})</CardTitle>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={fetchRealData}
+            disabled={loading}
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <div ref={chartContainerRef} className="w-full" />
@@ -83,34 +132,3 @@ export const TradingViewChart = ({ symbol, data = [], height = 400 }: TradingVie
     </Card>
   );
 };
-
-// Helper function to generate sample candlestick data
-function generateSampleData(): CandlestickData[] {
-  const data: CandlestickData[] = [];
-  const basePrice = 50000;
-  let currentPrice = basePrice;
-  const now = Math.floor(Date.now() / 1000);
-  
-  for (let i = 100; i >= 0; i--) {
-    const time = (now - i * 3600) as any;
-    const volatility = 0.02;
-    const change = (Math.random() - 0.5) * basePrice * volatility;
-    
-    const open = currentPrice;
-    const close = open + change;
-    const high = Math.max(open, close) * (1 + Math.random() * 0.01);
-    const low = Math.min(open, close) * (1 - Math.random() * 0.01);
-    
-    data.push({
-      time,
-      open,
-      high,
-      low,
-      close,
-    });
-    
-    currentPrice = close;
-  }
-  
-  return data;
-}

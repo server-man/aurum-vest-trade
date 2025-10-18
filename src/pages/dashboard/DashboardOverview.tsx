@@ -9,6 +9,8 @@ import {
   Activity, 
   DollarSign,
 } from 'lucide-react';
+import LivePriceTracker from '@/components/dashboard/LivePriceTracker';
+import ExchangeRateWidget from '@/components/dashboard/ExchangeRateWidget';
 import { toast } from 'sonner';
 
 const DashboardOverview = () => {
@@ -130,6 +132,12 @@ const DashboardOverview = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Live Market Data */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <LivePriceTracker />
+        <ExchangeRateWidget />
+      </div>
     </div>
   );
 };
