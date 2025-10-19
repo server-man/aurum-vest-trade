@@ -11,6 +11,9 @@ import {
 } from 'lucide-react';
 import LivePriceTracker from '@/components/dashboard/LivePriceTracker';
 import ExchangeRateWidget from '@/components/dashboard/ExchangeRateWidget';
+import { Watchlist } from '@/components/dashboard/Watchlist';
+import { PriceAlerts } from '@/components/dashboard/PriceAlerts';
+import { NewsFeed } from '@/components/dashboard/NewsFeed';
 import { toast } from 'sonner';
 
 const DashboardOverview = () => {
@@ -134,9 +137,16 @@ const DashboardOverview = () => {
       </Card>
 
       {/* Live Market Data */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <LivePriceTracker />
         <ExchangeRateWidget />
+        <Watchlist />
+      </div>
+      
+      {/* Price Alerts and News */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <PriceAlerts />
+        <NewsFeed />
       </div>
     </div>
   );

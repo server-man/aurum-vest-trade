@@ -38,3 +38,6 @@ verify_jwt = false
 
 [functions.crypto-candles]
 verify_jwt = false
+
+[functions.price-alert-monitor]
+verify_jwt = false
