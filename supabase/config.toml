@@ -41,3 +41,6 @@ verify_jwt = false
 
 [functions.price-alert-monitor]
 verify_jwt = false
+
+[functions.price-predictions]
+verify_jwt = false

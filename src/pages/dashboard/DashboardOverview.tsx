@@ -14,6 +14,7 @@ import ExchangeRateWidget from '@/components/dashboard/ExchangeRateWidget';
 import { Watchlist } from '@/components/dashboard/Watchlist';
 import { PriceAlerts } from '@/components/dashboard/PriceAlerts';
 import { NewsFeed } from '@/components/dashboard/NewsFeed';
+import { PricePredictions } from '@/components/dashboard/PricePredictions';
 import { toast } from 'sonner';
 
 const DashboardOverview = () => {
@@ -148,6 +149,9 @@ const DashboardOverview = () => {
         <PriceAlerts />
         <NewsFeed />
       </div>
+      
+      {/* AI Predictions */}
+      <PricePredictions />
     </div>
   );
 };
