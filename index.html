@@ -35,9 +35,10 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#FFC107" />
-    <meta name="msapplication-TileColor" content="#FFC107" />
+    <!-- Disable PWA Installation -->
+    <meta name="mobile-web-app-capable" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fapdrnwrkeivaxglyeiy.supabase.co" />
@@ -46,6 +47,8 @@
 
   <body>
     <div id="root"></div>
+    <!-- Unregister any existing service workers to disable PWA -->
+    <script src="/sw-unregister.js"></script>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

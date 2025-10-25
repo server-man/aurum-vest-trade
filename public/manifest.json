@@ -1,0 +1,8 @@
+{
+  "name": "AurumVest",
+  "short_name": "AurumVest",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "description": "Trading platform - Web version only, no installation"
+}

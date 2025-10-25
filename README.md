@@ -88,10 +88,20 @@ npm run dev
 
 ### Environment Variables
 
-```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+Create a `.env` file from the template:
+
+```bash
+cp .env.example .env
 ```
+
+Required variables:
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+VITE_SUPABASE_PROJECT_ID=your_project_id
+```
+
+**⚠️ Security Note:** Never commit your `.env` file. See [docs/environment.md](docs/environment.md) for detailed setup instructions.
 
 ## 🏃‍♂️ Available Scripts
 
@@ -101,6 +111,8 @@ npm run build        # Production build
 npm run build:dev    # Development build
 npm run preview      # Preview production build
 npm run lint         # Run ESLint
+npm run test         # Run unit tests (Vitest)
+npx playwright test  # Run E2E tests
 ```
 
 ## 📁 Project Structure
@@ -110,17 +122,33 @@ aurum-vest/
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── ui/             # Base UI components (shadcn)
-│   │   └── dashboard/      # Dashboard-specific components
+│   │   ├── dashboard/      # Dashboard-specific components
+│   │   ├── admin/          # Admin panel components
+│   │   └── trading/        # Trading-specific components
 │   ├── contexts/           # React context providers
 │   ├── hooks/              # Custom React hooks
 │   ├── integrations/       # Third-party integrations
 │   │   └── supabase/      # Supabase client and types
 │   ├── lib/               # Utility functions
 │   ├── pages/             # Route components
-│   └── styles/            # Global styles
+│   └── index.css          # Global styles & design system
 ├── public/                # Static assets
 ├── supabase/              # Supabase configuration
-└── docs/                  # Documentation
+│   ├── functions/         # Edge functions
+│   └── config.toml        # Supabase config
+├── e2e/                   # End-to-end tests (Playwright)
+├── docs/                  # 📚 Project documentation
+│   ├── cleanup_report.md          # Repository cleanup details
+│   ├── collaboration.md           # Contribution guidelines
+│   ├── content_management.md      # CMS guide
+│   ├── environment.md             # Environment setup
+│   ├── implementation_summary.md  # Feature implementation
+│   ├── optimization.md            # Performance optimization
+│   ├── real_market_data.md       # Market data integration
+│   ├── security_findings.md      # Security audit results
+│   ├── websocket_notifications.md # Real-time notifications
+│   └── todo.md                   # Project roadmap
+└── README.md              # This file
 ```
 
 ## 🔐 Security Features
@@ -185,16 +213,22 @@ aurum-vest/
 ## 🧪 Testing Strategy
 
 ### Testing Stack
-- Jest for unit testing
-- React Testing Library for component testing
-- Cypress for end-to-end testing
-- MSW for API mocking
+- **Vitest** - Fast unit testing framework
+- **React Testing Library** - Component testing
+- **Playwright** - End-to-end testing across browsers
+- **Testing Library User Event** - User interaction simulation
 
-### Coverage Areas
-- Authentication flows
-- Trading bot operations
-- Wallet management
-- UI component interactions
+### Test Suites
+- ✅ **E2E Tests** (`e2e/`) - Landing page, auth flows, dashboard, accessibility
+- ✅ **Unit Tests** (`src/**/__tests__/`) - Components, hooks, utilities
+- ✅ **Integration Tests** - Supabase edge functions
+
+### Running Tests
+```bash
+npm run test              # Unit tests
+npx playwright test       # E2E tests (all browsers)
+npx playwright test --ui  # E2E tests with UI
+```
 
 ## 🚀 Deployment
 
@@ -236,39 +270,71 @@ npm run build
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Collaboration Guide](COLLABORATION.md) for details.
+We welcome contributions! Please see our [Collaboration Guide](docs/collaboration.md) for details.
 
 ### Development Workflow
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
-4. Write tests
-5. Submit a pull request
+4. Write/update tests
+5. Run tests (`npm run test && npx playwright test`)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Submit a pull request
+
+### Code Quality
+- Follow TypeScript best practices
+- Use semantic CSS tokens from design system
+- Write comprehensive tests
+- Update documentation
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## 🆘 Support & Documentation
 
-### Documentation
-- [API Documentation](docs/api.md)
-- [Component Library](docs/components.md)
-- [Deployment Guide](docs/deployment.md)
+### 📚 Documentation
+All documentation is now organized in the `/docs` folder:
 
-### Community
-- [Discord Community](https://discord.gg/aurumvest)
-- [GitHub Discussions](https://github.com/aurumvest/discussions)
-- [Support Email](mailto:support@aurumvest.com)
+- **[Environment Setup](docs/environment.md)** - Environment variables guide
+- **[Security Findings](docs/security_findings.md)** - Security audit & PWA limitations
+- **[Implementation Summary](docs/implementation_summary.md)** - Feature implementation details
+- **[Optimization Guide](docs/optimization.md)** - Performance optimization strategies
+- **[Market Data Integration](docs/real_market_data.md)** - Real-time data implementation
+- **[WebSocket Notifications](docs/websocket_notifications.md)** - Real-time notification system
+- **[Content Management](docs/content_management.md)** - CMS features guide
+- **[Collaboration Guide](docs/collaboration.md)** - Contributing guidelines
+- **[Project Roadmap](docs/todo.md)** - Upcoming features and tasks
+- **[Cleanup Report](docs/cleanup_report.md)** - Recent repository cleanup details
 
-### Status
-- [System Status](https://status.aurumvest.com)
-- [Changelog](CHANGELOG.md)
-- [Roadmap](TODO.md)
+### 🛠️ Technical Support
+- GitHub Issues for bug reports
+- Pull requests for code contributions
+- Security issues: Report privately to maintainers
+
+### 📊 Project Status
+- [View Project Board](https://github.com/aurumvest/project-board)
+- [Roadmap](docs/todo.md)
+- Build Status: ✅ All tests passing
+
+---
+
+## 🧹 Recent Updates
+
+**Repository Cleanup (2025-10-25)**
+- ✅ Documentation organized into `/docs` folder
+- ✅ PWA installation features disabled (web-only application)
+- ✅ Environment files sanitized and security improved
+- ✅ E2E testing suite implemented with Playwright
+- ✅ Search engine indexing blocked (`robots.txt` + meta tags)
+- ✅ Service worker caching disabled
+
+See [docs/cleanup_report.md](docs/cleanup_report.md) for complete details.
 
 ---
 
 <div align="center">
   <p>Built with ❤️ by the Aurum Vest Team</p>
-  <p>© 2024 Aurum Vest. All rights reserved.</p>
+  <p>© 2024-2025 Aurum Vest. All rights reserved.</p>
 </div>
