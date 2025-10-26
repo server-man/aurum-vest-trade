@@ -1,10 +1,10 @@
 project_id = "fapdrnwrkeivaxglyeiy"
 
 [functions.crypto-ai-agent]
-verify_jwt = false
+verify_jwt = true
 
 [functions.market-data-sync]
-verify_jwt = false
+verify_jwt = true
 
 [functions.send-notification]
 verify_jwt = true
@@ -13,7 +13,7 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.websocket-relay]
-verify_jwt = false
+verify_jwt = true
 
 [functions.ip-geolocation]
 verify_jwt = false
@@ -31,16 +31,16 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.exchange-rates]
-verify_jwt = false
+verify_jwt = true
 
 [functions.stock-data]
-verify_jwt = false
+verify_jwt = true
 
 [functions.crypto-candles]
-verify_jwt = false
+verify_jwt = true
 
 [functions.price-alert-monitor]
-verify_jwt = false
+verify_jwt = true
 
 [functions.price-predictions]
-verify_jwt = false
+verify_jwt = true
