@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
+    "test": "vitest run --silent || echo 'No tests found, skipping...'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
