@@ -72,8 +72,8 @@ Aurum Vest is a comprehensive cryptocurrency trading platform that combines cutt
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/aurum-vest.git
-cd aurum-vest
+git clone https://github.com/your-username/aurum-vest-trade.git
+cd aurum-vest-trade
 
 # Install dependencies
 npm install
@@ -314,7 +314,7 @@ All documentation is now organized in the `/docs` folder:
 - Security issues: Report privately to maintainers
 
 ### 📊 Project Status
-- [View Project Board](https://github.com/aurumvest/project-board)
+- [View Project Board](https://github.com/aurum-vest-trade/project-board)
 - [Roadmap](docs/todo.md)
 - Build Status: ✅ All tests passing
 
