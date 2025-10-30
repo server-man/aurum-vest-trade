@@ -206,8 +206,8 @@ const SOC2 = () => {
               </p>
               <p>
                 <strong>Contact:</strong>{" "}
-                <a href="mailto:compliance@aurumvest.com" className="text-binance-yellow hover:underline">
-                  compliance@aurumvest.com
+                <a href="mailto:compliance@aurumvest.xyz" className="text-binance-yellow hover:underline">
+                  compliance@aurumvest.xyz
                 </a>
               </p>
             </section>
