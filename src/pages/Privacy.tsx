@@ -24,7 +24,7 @@ const Privacy = () => {
               <div>
                 <h2 className="text-xl font-semibold mb-3 text-white">1. Introduction</h2>
                 <p className="text-gray-300">
-                  At CryptoVest ("we", "our", or "us"), we respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and use our services, regardless of where you visit it from, and tell you about your privacy rights and how the law protects you.
+                  At Aurum Vest ("we", "our", or "us"), we respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and use our services, regardless of where you visit it from, and tell you about your privacy rights and how the law protects you.
                 </p>
               </div>
               
@@ -92,7 +92,7 @@ const Privacy = () => {
                   If you have any questions about this privacy policy or our privacy practices, please contact us at:
                 </p>
                 <div className="mt-2 text-binance-yellow">
-                  privacy@cryptovest.com
+                  privacy@aurumvest.xyz
                 </div>
               </div>
             </div>
