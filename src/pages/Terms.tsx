@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -24,7 +23,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-xl font-semibold mb-3 text-white">1. Introduction</h2>
                 <p className="text-gray-300">
-                  Welcome to CryptoVest ("Company", "we", "our", "us"). These Terms of Service ("Terms", "Terms of Service") govern your use of our website and services operated by CryptoVest.
+                  Welcome to Aurum Vest ("Company", "we", "our", "us"). These Terms of Service ("Terms", "Terms of Service") govern your use of our website and services operated by Aurum Vest.
                 </p>
                 <p className="text-gray-300 mt-2">
                   By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the Service.
@@ -83,7 +82,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-xl font-semibold mb-3 text-white">6. Limitation of Liability</h2>
                 <p className="text-gray-300">
-                  In no event shall CryptoVest, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:
+                  In no event shall Aurum Vest,nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:
                 </p>
                 <ul className="list-disc pl-6 mt-3 space-y-2 text-gray-300">
                   <li>Your use or inability to use the Service.</li>
@@ -113,7 +112,7 @@ const Terms = () => {
                   If you have any questions about these Terms, please contact us at:
                 </p>
                 <div className="mt-2 text-binance-yellow">
-                  legal@cryptovest.com
+                  legal@aurumvest.xyz
                 </div>
               </div>
             </div>
