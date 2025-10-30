@@ -127,7 +127,7 @@ const Contact = () => {
                       Get in touch via email for non-urgent inquiries
                     </p>
                     <a href="mailto:support@aurumvest.com" className="text-binance-yellow hover:underline">
-                      support@aurumvest.com
+                      support@aurumvest.xyz
                     </a>
                   </div>
                 </div>
