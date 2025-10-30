@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
   BarChart3, 
@@ -49,33 +49,17 @@ const quickActions = [
 ];
 
 export function DashboardSidebar() {
-  const { state, setOpen } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const { signOut, user } = useAuth();
   const currentPath = location.pathname;
   const collapsed = state === 'collapsed';
-
-  // Solution 2: Close sidebar automatically on route change (for mobile)
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      setOpen(false);
-    }
-  }, [location.pathname, setOpen]);
 
   const isActive = (path: string) => {
     if (path === '/dashboard') {
       return currentPath === '/dashboard';
     }
     return currentPath.startsWith(path);
-  };
-
-  // Solution 1: Close sidebar on navigation link click (for mobile)
-  const handleNavigation = () => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      setOpen(false);
-    }
   };
 
   const handleSignOut = async () => {
@@ -103,7 +87,6 @@ export function DashboardSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      onClick={handleNavigation}
                       className={({ isActive }) =>
                         `flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                           isActive
@@ -131,7 +114,6 @@ export function DashboardSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      onClick={handleNavigation}
                       className={({ isActive }) =>
                         `flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                           isActive
@@ -170,4 +152,4 @@ export function DashboardSidebar() {
       </SidebarContent>
     </Sidebar>
   );
-}
+   }
