@@ -131,7 +131,7 @@ const About = () => {
               Our Team
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Meet the <span className="text-gradient">Experts</span> Behind CryptoVest
+              Meet the <span className="text-gradient">Experts</span> Behind Aurum Vest
             </h2>
             <p className="text-gray-400 text-lg">
               Our diverse team combines decades of experience in finance, blockchain technology, and software development.
@@ -182,7 +182,7 @@ const About = () => {
               Join Our Trading Revolution
             </h2>
             <p className="text-gray-400 text-lg mb-8">
-              Experience the power of automated trading with CryptoVest's cutting-edge platform.
+              Experience the power of automated trading with Aurum Vest's cutting-edge platform.
             </p>
             <Link to="/register">
               <CTAButton size="lg">
