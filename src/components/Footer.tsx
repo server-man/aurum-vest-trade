@@ -83,8 +83,8 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="text-gray-400">
                 <span className="block">Email:</span>
-                <a href="mailto:support@cryptovest.com" className="text-binance-yellow hover:underline">
-                  support@cryptovest.com
+                <a href="mailto:support@cryptovest.xyz" className="text-binance-yellow hover:underline">
+                  support@cryptovest.xyz
                 </a>
               </li>
               <li className="text-gray-400">
