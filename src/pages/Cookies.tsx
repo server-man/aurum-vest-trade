@@ -93,8 +93,8 @@ const Cookies = () => {
               <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
               <p>
                 If you have questions about our use of cookies, please contact us at:{" "}
-                <a href="mailto:privacy@aurumvest.com" className="text-binance-yellow hover:underline">
-                  privacy@aurumvest.com
+                <a href="mailto:privacy@aurumvest.xyz" className="text-binance-yellow hover:underline">
+                  privacy@aurumvest.xyz
                 </a>
               </p>
             </section>
