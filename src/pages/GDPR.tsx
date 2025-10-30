@@ -145,8 +145,8 @@ const GDPR = () => {
               <div className="glass-effect rounded-lg p-6">
                 <p className="mb-2">
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:dpo@aurumvest.com" className="text-binance-yellow hover:underline">
-                    dpo@aurumvest.com
+                  <a href="mailto:dpo@aurumvest.xyz" className="text-binance-yellow hover:underline">
+                    dpo@aurumvest.xyz
                   </a>
                 </p>
                 <p>
