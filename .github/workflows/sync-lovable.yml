@@ -1,0 +1,81 @@
+name: Sync Lovable.dev Updates (Auto-Detect)
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # Every 6 hours
+  workflow_dispatch:        # Manual trigger available
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-lovable:
+    name: Detect & Sync Lovable.dev Changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history for accurate diffs
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Detect Lovable.dev remote automatically
+        id: detect
+        run: |
+          # Attempt to detect Lovable.dev remote URL
+          LOVABLE_URL=$(git remote -v | grep lovable | head -n1 | awk '{print $2}' || true)
+
+          if [ -z "$LOVABLE_URL" ]; then
+            # Try to derive URL from project name
+            PROJECT_NAME=$(basename "$(pwd)")
+            LOVABLE_URL="https://github.com/${{ github.repository_owner }}/${PROJECT_NAME}-lovable.git"
+          fi
+
+          echo "LOVABLE_URL=$LOVABLE_URL" >> $GITHUB_ENV
+          echo "Detected Lovable.dev remote: $LOVABLE_URL"
+
+      - name: Add Lovable.dev remote
+        run: |
+          git remote add lovable $LOVABLE_URL || true
+          git fetch lovable main || true
+
+      - name: Check for differences
+        id: diff
+        run: |
+          if git fetch lovable main && ! git diff --quiet main..lovable/main; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create sync branch and merge updates
+        if: steps.diff.outputs.changes == 'true'
+        run: |
+          BRANCH="sync-lovable-$(date +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          git merge lovable/main --no-edit || true
+          git push origin "$BRANCH"
+
+      - name: Open Pull Request
+        if: steps.diff.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "🔄 Auto-Sync: Lovable.dev Workspace Updates"
+          body: |
+            This PR automatically syncs the latest code from the Lovable.dev workspace.
+
+            - ✅ Auto-detected remote
+            - 🔁 Merged into: main
+            - 🕓 Triggered automatically by schedule
+          branch: ${{ github.ref_name }}
+          base: main
+          labels: |
+            automation
+            lovable-sync
