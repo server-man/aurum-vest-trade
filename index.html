@@ -1,57 +1,79 @@
-<!DOCTYPE html>  
-<html lang="en">  
-  <head>  
-    <meta charset="UTF-8" />  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-  
-    <title>Aurum Vest - Automated Trading Bot Platform</title>  
-    <meta name="description" content="Aurum Vest: Advanced automated trading bot platform for cryptocurrency markets. Real-time signals, algorithmic trading, and intelligent market analysis." />  
-    <meta name="author" content="Aurum Vest" />  
-    <meta name="keywords" content="automated trading, crypto bot, trading signals, algorithmic trading, cryptocurrency, bitcoin, ethereum, trading automation, market analysis" />  
-    <meta name="robots" content="index, follow" />  
-  
-    <!-- Canonical & Alternate URLs -->  
-    <link rel="canonical" href="https://aurumvest.xyz" />  
-    <link rel="alternate" href="https://aurumvest.netlify.app" />  
-  
-    <!-- Open Graph -->  
-    <meta property="og:site_name" content="Aurum Vest" />  
-    <meta property="og:title" content="Aurum Vest - Automated Trading Bot Platform" />  
-    <meta property="og:description" content="Advanced automated trading bot platform for cryptocurrency markets with real-time signals and intelligent analysis." />  
-    <meta property="og:image" content="https://aurumvest.xyz/og-image.png" />  
-    <meta property="og:type" content="website" />  
-    <meta property="og:url" content="https://aurumvest.xyz" />  
-    <meta property="og:locale" content="en_US" />  
-  
-    <!-- Twitter Card -->  
-    <meta name="twitter:card" content="summary_large_image" />  
-    <meta name="twitter:site" content="@aurumvest" />  
-    <meta name="twitter:title" content="Aurum Vest - Automated Trading Bot Platform" />  
-    <meta name="twitter:description" content="Advanced automated trading bot platform for cryptocurrency markets with real-time signals and intelligent analysis." />  
-    <meta name="twitter:image" content="https://aurumvest.xyz/og-image.png" />  
-  
-    <!-- Security Headers (still useful even if redundant with Netlify) -->  
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />  
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />  
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />  
-    <meta name="referrer" content="strict-origin-when-cross-origin" />  
-  
-    <!-- Theme & App Colors -->  
-    <meta name="theme-color" content="#0d1117" />  
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />  
-  
-    <!-- Favicon -->  
-    <link rel="icon" type="image/png" href="/favicon.png" />  
-  
-  </head>  
-  
-  <body>  
-    <div id="root"></div>  
-  
-    <!-- Optional: unregister old service workers -->  
-    <script src="/sw-unregister.js"></script>  
-  
-    <!-- Load React App -->  
-    <script type="module" src="/src/main.tsx"></script>  
-  </body>  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Aurum Vest - Automated Trading Bot Platform</title>
+    <meta
+      name="description"
+      content="Aurum Vest: Advanced automated trading bot platform for cryptocurrency markets. Real-time signals, algorithmic trading, and intelligent market analysis."
+    />
+    <meta name="author" content="Aurum Vest" />
+    <meta
+      name="keywords"
+      content="automated trading, crypto bot, trading signals, algorithmic trading, cryptocurrency, bitcoin, ethereum, trading automation, market analysis"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical: production domain -->
+    <link rel="canonical" href="https://aurumvest.xyz" />
+
+    <!-- Alternate: Netlify preview / Lovable workspace -->
+    <link rel="alternate" href="https://aurumvest.netlify.app" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Aurum Vest" />
+    <meta
+      property="og:title"
+      content="Aurum Vest - Automated Trading Bot Platform"
+    />
+    <meta
+      property="og:description"
+      content="Advanced automated trading bot platform for cryptocurrency markets with real-time signals and intelligent analysis."
+    />
+    <meta
+      property="og:image"
+      content="/og-image.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aurumvest.xyz" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@aurumvest" />
+    <meta
+      name="twitter:title"
+      content="Aurum Vest - Automated Trading Bot Platform"
+    />
+    <meta
+      name="twitter:description"
+      content="Advanced automated trading bot platform for cryptocurrency markets with real-time signals and intelligent analysis."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0d1117" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- Unregister old service workers -->
+    <script src="/sw-unregister.js"></script>
+
+    <!-- React entry -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
       </html>
