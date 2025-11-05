@@ -16,7 +16,7 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.ip-geolocation]
-verify_jwt = false
+verify_jwt = true
 
 [functions.security-pin]
 verify_jwt = true
