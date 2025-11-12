@@ -12,6 +12,7 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
   const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
     checkAdminAccess();
@@ -24,6 +25,7 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
     }
 
     try {
+      // Check admin role
       const { data, error } = await supabase
         .from('user_roles')
         .select('role')
@@ -32,9 +34,17 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
 
       if (!error && data && data.role === 'admin') {
         setIsAdmin(true);
+        
+        // Check server-side verification via edge function
+        const { data: verifyData, error: verifyError } = await supabase.functions.invoke(
+          'admin-verify-token',
+          { method: 'GET' }
+        );
+
+        if (!verifyError && verifyData?.verified) {
+          setIsVerified(true);
+        }
       }
-    } catch (error) {
-      console.error("Error checking admin access:", error);
     } finally {
       setLoading(false);
     }
@@ -59,6 +69,10 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
 
   if (!isAdmin) {
     return <Navigate to="/dashboard" replace />;
+  }
+
+  if (!isVerified) {
+    return <Navigate to="/admin/verify" replace />;
   }
 
   return <>{children}</>;
