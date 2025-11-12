@@ -7,7 +7,7 @@ Professional-grade automated trading bots with AI-powered signals, real-time ana
 
 ## 🔗 Links
 
-- **Production**: [aurumvest.xyz](https://aurumvest.xyz)
+- **Production**: [aurumvest.xyz](https://aurumvest.netlify.app)
 - **GitHub**: [server-man/aurum-vest-trade](https://github.com/server-man/aurum-vest-trade)
 
 ## ✨ Key Features
