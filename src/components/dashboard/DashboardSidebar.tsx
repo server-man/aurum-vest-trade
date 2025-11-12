@@ -39,7 +39,6 @@ const dashboardItems = [
   { title: 'Referrals', url: '/dashboard/referrals', icon: Gift },
   { title: 'Profile', url: '/dashboard/profile', icon: Users },
   { title: 'Support', url: '/dashboard/support', icon: MessageSquare },
-  { title: 'Admin Panel', url: '/admin', icon: Shield },
 ];
 
 const quickActions = [
@@ -152,4 +151,4 @@ export function DashboardSidebar() {
       </SidebarContent>
     </Sidebar>
   );
-   }
+  }
