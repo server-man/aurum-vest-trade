@@ -22,7 +22,11 @@ const Cookies = lazy(() => import("./pages/Cookies"));
 const GDPR = lazy(() => import("./pages/GDPR"));
 const SOC2 = lazy(() => import("./pages/SOC2"));
 const Admin = lazy(() => import("./pages/Admin"));
+const AdminVerification = lazy(() => import("./pages/admin/AdminVerification"));
+const AdminVerifyCallback = lazy(() => import("./pages/admin/AdminVerifyCallback"));
 const ContentManagement = lazy(() => import("./pages/admin/ContentManagement"));
+const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
+const AdminSecurity = lazy(() => import("./pages/admin/AdminSecurity"));
 const Logo = lazy(() => import("./pages/Logo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -78,6 +82,12 @@ const App = () => (
                 <Route path="/gdpr" element={<GDPR />} />
                 <Route path="/soc2" element={<SOC2 />} />
                 <Route path="/logo" element={<Logo />} />
+                
+                {/* Admin Verification Routes */}
+                <Route path="/admin/verify" element={<AdminVerification />} />
+                <Route path="/admin/verify-callback" element={<AdminVerifyCallback />} />
+                
+                {/* Protected Admin Routes */}
                 <Route
                   path="/admin" 
                   element={
@@ -91,6 +101,22 @@ const App = () => (
                   element={
                     <AdminRoute>
                       <ContentManagement />
+                    </AdminRoute>
+                  } 
+                />
+                <Route
+                  path="/admin/settings" 
+                  element={
+                    <AdminRoute>
+                      <AdminSettings />
+                    </AdminRoute>
+                  } 
+                />
+                <Route
+                  path="/admin/security" 
+                  element={
+                    <AdminRoute>
+                      <AdminSecurity />
                     </AdminRoute>
                   } 
                 />
