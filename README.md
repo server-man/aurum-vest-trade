@@ -1,137 +1,73 @@
-# 🏆 Aurum Vest - Automated Crypto Trading Platform
+# Welcome to your Lovable project
 
-[![CI Pipeline](https://github.com/server-man/aurum-vest-trade/actions/workflows/ci.yml/badge.svg)](https://github.com/server-man/aurum-vest-trade/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## Project info
 
-Professional-grade automated trading bots with AI-powered signals, real-time analytics, and bank-level security.
+**URL**: https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee
 
-## 🔗 Links
+## How can I edit this code?
 
-- **Production**: [aurumvest.netlify.app](https://aurumvest.netlify.app)
-- **GitHub**: [server-man/aurum-vest-trade](https://github.com/server-man/aurum-vest-trade)
+There are several ways of editing your application.
 
-## ✨ Key Features
+**Use Lovable**
 
-- 🤖 **Automated Trading Bots** - 24/7 strategy execution with customizable parameters
-- 📊 **Real-Time Analytics** - Live market data, AI predictions, and technical analysis
-- 💰 **Multi-Asset Wallet** - Secure portfolio management across cryptocurrencies
-- 🔔 **Smart Alerts** - Price notifications and trading signals via WebSocket
-- 🛡️ **Enterprise Security** - HTTP-only cookies, RLS policies, JWT authentication
-- 📱 **Responsive Design** - Seamless experience across all devices
+Simply visit the [Lovable Project](https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee) and start prompting.
 
-## 🚀 Quick Start
+Changes made via Lovable will be committed automatically to this repo.
 
-```bash
-# Clone repository
-git clone https://github.com/server-man/aurum-vest-trade.git
-cd aurum-vest-trade
+**Use your preferred IDE**
 
-# Install dependencies
-npm install
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-# Start development server
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-Visit `http://localhost:8080`
+**Edit a file directly in GitHub**
 
-## 🛠️ Tech Stack
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-**Frontend**: React 18, TypeScript, Tailwind CSS, Shadcn/UI, React Query  
-**Backend**: Supabase (PostgreSQL, Edge Functions, Auth, Storage)  
-**Tools**: Vite, Playwright (E2E), Vitest (Unit Tests), ESLint
+**Use GitHub Codespaces**
 
-## 📁 Project Structure
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-```
-src/
-├── components/      # Reusable UI components
-│   ├── ui/         # Base components (shadcn)
-│   ├── dashboard/  # Dashboard widgets
-│   ├── admin/      # Admin panel
-│   └── trading/    # Trading components
-├── contexts/       # React contexts (Auth, Theme)
-├── hooks/          # Custom React hooks
-├── integrations/   # Supabase client
-├── pages/          # Route components
-└── lib/            # Utilities
+## What technologies are used for this project?
 
-supabase/
-├── functions/      # Edge functions
-└── migrations/     # Database migrations
-```
+This project is built with:
 
-## 🧪 Testing
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-```bash
-npm run test              # Unit tests (Vitest)
-npm run test:coverage     # Coverage report
-npx playwright test       # E2E tests
-npx playwright test --ui  # E2E with UI
-```
+## How can I deploy this project?
 
-**Test Coverage**:
-- ✅ E2E: Landing page, authentication, dashboard, accessibility
-- ✅ Unit: Components, hooks, utilities
-- ✅ Integration: Edge functions, database operations
+Simply open [Lovable](https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee) and click on Share -> Publish.
 
-## 🔐 Security Features
+## Can I connect a custom domain to my Lovable project?
 
-✅ **Authentication**: JWT + MFA + WebAuthn passkeys  
-✅ **Authorization**: Role-based access control (Admin/User)  
-✅ **Data Protection**: Row-level security on all tables  
-✅ **Session Management**: HTTP-only cookies, server-side token verification  
-✅ **Admin Access**: Secure verification flow with GitHub OAuth  
-✅ **Audit Logs**: Comprehensive tracking of admin actions
+Yes, you can!
 
-See [docs/security_findings.md](docs/security_findings.md) for latest security audit.
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-## 🚀 Deployment
-
-**Current Setup**: Lovable → GitHub → Netlify
-
-1. Push changes to GitHub
-2. Netlify automatically builds and deploys
-3. Production: `https://aurumvest.xyz`
-
-**Environment**:
-- Supabase credentials: Configured in `src/integrations/supabase/client.ts`
-- Edge function secrets: Managed in Supabase Dashboard
-- Node version: 18+ (see `netlify.toml`)
-
-## 📚 Documentation
-
-- [Environment Setup](docs/environment.md)
-- [Security Audit](docs/security_findings.md)
-- [Content Management](docs/content_management.md)
-- [WebSocket Integration](docs/websocket_notifications.md)
-- [Performance Optimization](docs/optimization.md)
-- [Contributing Guide](docs/collaboration.md)
-
-## 📜 Scripts
-
-```bash
-npm run dev          # Development server (port 8080)
-npm run build        # Production build
-npm run preview      # Preview production build
-npm run lint         # ESLint check
-npm run test         # Run tests
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-Follow TypeScript best practices, write tests, and update documentation.
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file.
-
----
-
-**Built with ❤️ by Aurum Vest Team** | © 2024-2025 Aurum Vest
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
