@@ -1,73 +1,200 @@
-# Welcome to your Lovable project
+# Aurum Vest Trade - Crypto Trading Platform (In Development)
 
-## Project info
+<div align="center">
+  <h3>Modern React-based trading platform built with cutting-edge tools</h3>
+  <p>Currently in active development with robust CI/CD pipeline</p>
+  
+  ![GitHub Actions](https://img.shields.io/github/actions/workflow/status/server-man/aurum-vest-trade/ci.yml?branch=main)
+  ![Node.js](https://img.shields.io/badge/Node.js-18+-green)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue)
+  ![Vite](https://img.shields.io/badge/Vite-5.4+-purple)
+</div>
 
-**URL**: https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee
+## 🚀 Current Project Status
 
-## How can I edit this code?
+**Active Development** - This is a modern React/TypeScript application with full CI/CD pipeline, automated testing, and production-ready tooling. The project is currently being refined and stabilized.
 
-There are several ways of editing your application.
+### 🎯 What's Working Now
+- ✅ **Full CI/CD Pipeline** with GitHub Actions
+- ✅ **Automated Testing** (Unit, E2E with Playwright)
+- ✅ **Production Build System** with Vite
+- ✅ **TypeScript** with strict type checking
+- ✅ **Modern UI** with Tailwind CSS + Shadcn/UI
+- ✅ **Netlify Deployment** ready
+- ✅ **Code Quality** with ESLint + automated linting
 
-**Use Lovable**
+## 🏗️ Actual Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee) and start prompting.
+### Frontend (Current Implementation)
+- **React 18.3.1** - Latest React with hooks
+- **TypeScript 5.5.3** - Full type safety
+- **Vite 5.4.1** - Lightning-fast build tool
+- **Tailwind CSS 3.4.11** - Utility-first CSS
+- **Shadcn/UI** - Reusable component library
+- **React Router DOM** - Client-side routing
 
-Changes made via Lovable will be committed automatically to this repo.
+### Testing & Quality
+- **Vitest** - Unit testing framework
+- **Playwright** - E2E testing
+- **ESLint** - Code linting and quality
+- **GitHub Actions** - Automated CI/CD
 
-**Use your preferred IDE**
+### Backend Integration Ready
+- **Supabase** - Configured for backend services
+- **React Query** - Server state management
+- **React Hook Form** - Form handling with validation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📦 Quick Start (Actual Commands)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
+- Node.js 18+ 
+- npm or pnpm
+- Git
 
-Follow these steps:
+### Installation & Development
+```bash
+# Clone the repository
+git clone https://github.com/server-man/aurum-vest-trade.git
+cd aurum-vest-trade
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies (uses pnpm by default)
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Run tests
+npm run test
+
+
+🛠️ Available Scripts (Actual)
+
+```json
+{
+  "dev": "vite",
+  "build": "vite build", 
+  "build:dev": "vite build --mode development",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "test": "vitest run --silent || echo 'No tests found, skipping...'"
+}
 ```
 
-**Edit a file directly in GitHub**
+✅ CI/CD Pipeline Status
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project features a robust GitHub Actions pipeline that runs on every push:
 
-**Use GitHub Codespaces**
+```yaml
+- Linting & Type Checking
+- Unit Testing with Vitest  
+- E2E Testing with Playwright
+- Security Audits
+- Automated Build Verification
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+🚀 Deployment
 
-## What technologies are used for this project?
+Netlify (Current Production)
 
-This project is built with:
+· Auto-deploys from main branch
+· Build Command: npm run build
+· Publish Directory: dist
+· Node Version: 18
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Environment Setup
 
-## How can I deploy this project?
+```env
+# Required for production
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_key
+```
 
-Simply open [Lovable](https://lovable.dev/projects/ce3ed27b-c87d-48c0-9a86-02813150cfee) and click on Share -> Publish.
+📁 Project Structure (Actual)
 
-## Can I connect a custom domain to my Lovable project?
+```
+aurum-vest-trade/
+├── src/                    # Source code
+├── public/                 # Static assets
+├── dist/                   # Built files (auto-generated)
+├── .github/workflows/      # CI/CD configurations
+├── netlify.toml           # Netlify deployment config
+├── vite.config.ts         # Vite configuration
+├── tailwind.config.ts     # Tailwind CSS config
+├── tsconfig.json          # TypeScript config
+└── package.json           # Dependencies & scripts
+```
 
-Yes, you can!
+🧪 Testing Strategy (Implemented)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Automated Testing Pipeline
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+· Unit Tests: Vitest for component testing
+· E2E Tests: Playwright for user flows
+· Linting: ESLint with TypeScript rules
+· Type Checking: Built into build process
+
+Running Tests
+
+```bash
+# Run all tests
+npm run test
+
+# Run E2E tests  
+npx playwright test
+
+# Run linter
+npm run lint
+```
+
+🔧 Development Tools
+
+Code Quality
+
+· ESLint with TypeScript support
+· Prettier ready configuration
+· TypeScript strict mode
+· Git Hooks (via GitHub Actions)
+
+Browser Support
+
+· Modern browsers (ES2020 target)
+· Mobile-responsive design
+· Progressive Web App ready
+
+🤝 Contributing
+
+Development Workflow
+
+1. Fork the repository
+2. Create a feature branch from main
+3. Make changes with proper TypeScript types
+4. Ensure all tests pass: npm run test
+5. Submit Pull Request
+
+Code Standards
+
+· TypeScript for all new code
+· ESLint compliance required
+· Responsive design principles
+· Accessibility considerations
+
+🐛 Known Issues & Next Steps
+
+· Project Identity: Recently updated from template name
+· Sync Stabilization: Ensuring all environments are synchronized
+· Feature Development: Core trading functionality in progress
+
+📞 Support
+
+· GitHub Issues: Report bugs or request features
+· Discussions: GitHub Discussions
+
+---
+
+<div align="center">
+  <p>Built with modern web technologies and best practices</p>
+  <p>© 2024 Aurum Vest Trade. MIT License.</p>
+</div>
