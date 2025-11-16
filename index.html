@@ -91,5 +91,15 @@
     
     <!-- Main Application -->
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Git Dev Assist Widget -->
+<script>
+  (function() {
+    const script = document.createElement('script');
+    script.src = 'https://pdrhrbmvoyicjfnkbgxd.supabase.co/functions/v1/widget.js';
+    script.async = true;
+    script.setAttribute('data-config', './gitdev.json');
+    document.body.appendChild(script);
+  })();
+    </script>
   </body>
 </html>
